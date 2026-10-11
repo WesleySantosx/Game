@@ -1,4 +1,4 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://cgn3v7evg4g1j"]
 
 [ext_resource type="ArrayMesh" path="res://models/josias_textured/josias_mesh.tres" id="1_2jfrf"]
 

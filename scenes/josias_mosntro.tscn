@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://v3l1d25fpkgm"]
+
+[ext_resource type="Script" uid="uid://c0qtks8yenl8j" path="res://scripts/killer.gd" id="1_cndbu"]
+[ext_resource type="ArrayMesh" path="res://models/josias_textured/josias_mesh.tres" id="1_jmmwh"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vkyjv"]
+radius = 0.4
+height = 1.8
+
+[node name="Josias" type="CharacterBody3D" unique_id=1703306832]
+script = ExtResource("1_cndbu")
+
+[node name="Visual" type="MeshInstance3D" parent="." unique_id=1335208203]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+mesh = ExtResource("1_jmmwh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=114549989]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CapsuleShape3D_vkyjv")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=783780204]
