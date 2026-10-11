@@ -4,6 +4,9 @@
 [ext_resource type="PackedScene" path="res://scenes/player.tscn" id="2"]
 [ext_resource type="PackedScene" uid="uid://v3l1d25fpkgm" path="res://scenes/josias_mosntro.tscn" id="3_sugp2"]
 [ext_resource type="NavigationMesh" path="res://navigation/labyrinth_navmesh.tres" id="4_navmesh"]
+[ext_resource type="Script" path="res://scripts/game_ui.gd" id="5_hud"]
+[ext_resource type="PackedScene" path="res://scenes/serjo.tscn" id="6_serjo"]
+[ext_resource type="PackedScene" path="res://scenes/fat.tscn" id="7_fat"]
 
 [sub_resource type="Environment" id="Environment"]
 background_mode = 1
@@ -42,7 +45,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.618042, 0, 7.9540405)
 mesh = SubResource("FloorMesh")
 
 [node name="Collision" type="CollisionShape3D" parent="Floor" unique_id=2139075523]
-position = Vector3(4.618042, 0, 7.9540405)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.618042, 0, 7.9540405)
 shape = SubResource("FloorShape")
 
 [node name="NorthWall" type="CSGBox3D" parent="." unique_id=278968013]
@@ -76,9 +79,9 @@ size = Vector3(0.2259903, 3, 2.907138)
 material = SubResource("WallMaterial")
 
 [node name="SouthWall13" type="CSGBox3D" parent="." unique_id=627772170]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.351739, 1.5, 16.423058)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.351739, 1.5, 15.9701)
 use_collision = true
-size = Vector3(0.2259903, 3, 11.70585)
+size = Vector3(0.2259903, 3, 10.8)
 material = SubResource("WallMaterial")
 
 [node name="SouthWall7" type="CSGBox3D" parent="." unique_id=1629596057]
@@ -100,7 +103,7 @@ size = Vector3(9.944874, 3, 0.4)
 material = SubResource("WallMaterial")
 
 [node name="SouthWall29" type="CSGBox3D" parent="." unique_id=1906674481]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2926445, 1.5, -5.4058814)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2926445, 1.5, -5.8)
 use_collision = true
 size = Vector3(3.175562, 3, 0.4)
 material = SubResource("WallMaterial")
@@ -148,9 +151,9 @@ size = Vector3(6.552246, 3, 0.4)
 material = SubResource("WallMaterial")
 
 [node name="SouthWall30" type="CSGBox3D" parent="." unique_id=1182855914]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.723877, 1.5, 1.6064072)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1.5, 1.6064072)
 use_collision = true
-size = Vector3(6.552246, 3, 0.4)
+size = Vector3(6, 3, 0.4)
 material = SubResource("WallMaterial")
 
 [node name="SouthWall9" type="CSGBox3D" parent="." unique_id=742404369]
@@ -160,9 +163,9 @@ size = Vector3(12.055542, 3, 0.4)
 material = SubResource("WallMaterial")
 
 [node name="SouthWall14" type="CSGBox3D" parent="." unique_id=292904712]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4323502, 1.5, 18.041828)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.171611, 1.5, 18.041828)
 use_collision = true
-size = Vector3(9.978256, 3, 0.35136718)
+size = Vector3(9.456778, 3, 0.35136718)
 material = SubResource("WallMaterial")
 
 [node name="SouthWall20" type="CSGBox3D" parent="." unique_id=237358836]
@@ -190,9 +193,9 @@ size = Vector3(2.0598145, 3, 0.4)
 material = SubResource("WallMaterial")
 
 [node name="SouthWall11" type="CSGBox3D" parent="." unique_id=2100404474]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.1506538, 1.5, 13.312821)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.969362, 1.5, 13.312821)
 use_collision = true
-size = Vector3(3.022583, 3, 0.4)
+size = Vector3(2.661276, 3, 0.4)
 material = SubResource("WallMaterial")
 
 [node name="SouthWall12" type="CSGBox3D" parent="." unique_id=266858277]
@@ -274,28 +277,28 @@ light_energy = 0.65
 shadow_enabled = true
 omni_range = 8.0
 
-[node name="Ceiling" type="CSGBox3D" parent="."]
-position = Vector3(4.618042, 3.15, 7.9540405)
-size = Vector3(25.236084, 0.3, 31.908081)
+[node name="Ceiling" type="CSGBox3D" parent="." unique_id=11026401]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.618042, 3.15, 7.9540405)
 use_collision = true
+size = Vector3(25.236084, 0.3, 31.908081)
 material = SubResource("FloorMaterial")
 
-[node name="NorthLight" type="OmniLight3D" parent="."]
-position = Vector3(13.5, 2.65, -6.5)
+[node name="NorthLight" type="OmniLight3D" parent="." unique_id=653691026]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5, 2.65, -6.5)
 light_color = Color(0.55, 0.67, 1, 1)
 light_energy = 0.55
 shadow_enabled = true
 omni_range = 7.0
 
-[node name="MiddleLight" type="OmniLight3D" parent="."]
-position = Vector3(-5.4, 2.65, 14.5)
+[node name="MiddleLight" type="OmniLight3D" parent="." unique_id=820883220]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.4, 2.65, 14.5)
 light_color = Color(1, 0.62, 0.3, 1)
 light_energy = 0.65
 shadow_enabled = true
 omni_range = 7.0
 
-[node name="SouthLight" type="OmniLight3D" parent="."]
-position = Vector3(10, 2.65, 22.4)
+[node name="SouthLight" type="OmniLight3D" parent="." unique_id=625205151]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 2.65, 22.4)
 light_color = Color(0.55, 0.67, 1, 1)
 light_energy = 0.55
 shadow_enabled = true
@@ -316,58 +319,60 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.8, 0.6, 5.3)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.6, 0.6, 6.5)
 
 [node name="Marker3D9" type="Marker3D" parent="BallSpawns" unique_id=862836131]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.6, 16.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.9, 0.6, 16.7)
 
 [node name="Marker3D10" type="Marker3D" parent="BallSpawns" unique_id=997357561]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.8, 0.6, 14.5)
 
-[node name="Marker3D11" type="Marker3D" parent="BallSpawns"]
-position = Vector3(10, 0.6, 11.6)
+[node name="Marker3D11" type="Marker3D" parent="BallSpawns" unique_id=2057358657]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0.6, 11.6)
 
-[node name="Marker3D13" type="Marker3D" parent="BallSpawns"]
-position = Vector3(1, 0.6, 22.3)
+[node name="Marker3D13" type="Marker3D" parent="BallSpawns" unique_id=262391791]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.6, 22.3)
 
-[node name="Marker3D14" type="Marker3D" parent="BallSpawns"]
-position = Vector3(10, 0.6, 22.3)
+[node name="Marker3D14" type="Marker3D" parent="BallSpawns" unique_id=1812073368]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.3, 0.6, 22.3)
 
-[node name="Marker3D15" type="Marker3D" parent="BallSpawns"]
-position = Vector3(13.8, 0.6, 19.5)
+[node name="Marker3D15" type="Marker3D" parent="BallSpawns" unique_id=1755673224]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.8, 0.6, 19.5)
 
-[node name="Marker3D16" type="Marker3D" parent="BallSpawns"]
-position = Vector3(7.5, 0.6, 5.9)
+[node name="Marker3D16" type="Marker3D" parent="BallSpawns" unique_id=540693052]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0.6, 5.9)
 
-[node name="HUD" type="CanvasLayer" parent="." unique_id=1064742059]
+[node name="HUD" type="CanvasLayer" parent="."]
+script = ExtResource("5_hud")
 
-[node name="Counter" type="Label" parent="HUD" unique_id=1548982904]
-offset_left = 24.0
-offset_top = 20.0
-offset_right = 300.0
-offset_bottom = 60.0
-theme_override_font_sizes/font_size = 28
-text = "Bolas: 0 / 7"
+[node name="Marker3D4" type="Marker3D" parent="BallSpawns"]
+position = Vector3(-5.982, 0.6, 0)
 
-[node name="Help" type="Label" parent="HUD" unique_id=232224438]
-offset_left = 24.0
-offset_top = 64.0
-offset_right = 900.0
-offset_bottom = 96.0
-text = "WASD: mover | Shift: correr | Mouse: olhar | F: lanterna | Esc: liberar mouse | R: reiniciar"
+[node name="Marker3D5" type="Marker3D" parent="BallSpawns"]
+position = Vector3(1.2, 0.6, -6.7)
 
-[node name="Message" type="Label" parent="HUD" unique_id=1087736693]
-offset_left = 24.0
-offset_top = 110.0
-offset_right = 1000.0
-offset_bottom = 145.0
-theme_override_font_sizes/font_size = 20
-text = "Explore o labirinto e encontre as 7 bolas. Encoste para coletar."
+[node name="Marker3D6" type="Marker3D" parent="BallSpawns"]
+position = Vector3(-4.342599, 0.6, -4.425)
 
-[node name="Crosshair" type="Label" parent="HUD" unique_id=764678612]
-offset_left = 634.0
-offset_top = 344.0
-offset_right = 650.0
-offset_bottom = 372.0
-theme_override_font_sizes/font_size = 24
-text = "+"
+[node name="Marker3D7" type="Marker3D" parent="BallSpawns"]
+position = Vector3(-5.5, 0.6, 11.9)
+
+[node name="Marker3D8" type="Marker3D" parent="BallSpawns"]
+position = Vector3(-5.4, 0.6, 14.5)
+
+[node name="Marker3D12" type="Marker3D" parent="BallSpawns"]
+position = Vector3(-5, 0.6, 19.2)
 
 [node name="Josias" parent="." unique_id=1703306832 instance=ExtResource("3_sugp2")]
-position = Vector3(13.8, 0, 19.5)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 4, 0, 16.5)
+
+[node name="Serjo" parent="." instance=ExtResource("6_serjo")]
+position = Vector3(2, 0, 16.5)
+
+[node name="Fat" parent="." instance=ExtResource("7_fat")]
+position = Vector3(-4, 0, 5.3)
+rotation = Vector3(0, -1.57, 0)
+
+[node name="Hint" type="Label3D" parent="Fat"]
+position = Vector3(0, 2.2, 0)
+text = "FAT: pega as 7 bolas e salva o Serjo!"
+font_size = 32
+pixel_size = 0.008
+billboard = 1

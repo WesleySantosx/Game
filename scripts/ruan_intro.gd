@@ -16,3 +16,4 @@ func play_intro() -> void:
 	animation.tween_interval(maxf(0.0, duration - 0.5))
 	animation.tween_property($Image, "modulate:a", 0.0, 0.38)
 	animation.tween_callback($Image.hide)
+	animation.tween_callback(queue_free)

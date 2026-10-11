@@ -10,12 +10,16 @@ func bake() -> void:
 	var root := scene.instantiate() as Node3D
 	root.set_script(null)
 	for child in root.get_children():
-		if child.name != "Floor" and not (child is CSGBox3D and child.name != "Ceiling"):
+		if child.name not in ["Floor", "Serjo"] and not (child is CSGBox3D and child.name != "Ceiling"):
 			root.remove_child(child)
 			child.free()
 	get_root().add_child(root)
 	await process_frame
 	await process_frame
+	# A cela gera suas barras e colisões ao entrar na árvore.
+	root.get_node("Serjo/Prisoner").free()
+	for mesh in root.get_node("Serjo").find_children("*", "MeshInstance3D", true, false):
+		mesh.visible = true
 	var nav := NavigationMesh.new()
 	nav.agent_height = 1.8
 	nav.agent_radius = 0.35

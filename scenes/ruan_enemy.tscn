@@ -1,0 +1,38 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ruan_enemy.gd" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/ruan.tscn" id="2"]
+
+[sub_resource type="CapsuleShape3D" id="Body"]
+radius = 0.35
+height = 1.8
+
+[sub_resource type="CapsuleShape3D" id="Touch"]
+radius = 0.45
+height = 1.8
+
+[node name="Ruan" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 1
+script = ExtResource("1")
+base_speed = 4.4
+facing_offset = 0.0
+
+[node name="Visual" parent="." instance=ExtResource("2")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+position = Vector3(0, 0.9, 0)
+shape = SubResource("Body")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_desired_distance = 0.35
+target_desired_distance = 0.65
+path_height_offset = 0.5
+
+[node name="DamageArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DamageArea"]
+position = Vector3(0, 0.9, 0)
+shape = SubResource("Touch")

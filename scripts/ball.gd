@@ -1,9 +1,10 @@
 extends Area3D
 
-signal collected
+signal collected(ball: Area3D)
 
 var taken: bool = false
 var elapsed: float = 0.0
+var spawn_index: int = -1
 
 func _ready() -> void:
 	body_entered.connect(_on_body_entered)
@@ -17,5 +18,5 @@ func _on_body_entered(body: Node3D) -> void:
 	if taken or not body.is_in_group("player"):
 		return
 	taken = true
-	collected.emit()
+	collected.emit(self)
 	queue_free()

@@ -1,13 +1,13 @@
 [gd_scene load_steps=5 format=3]
 
 [ext_resource type="Script" path="res://scripts/ball.gd" id="1"]
+[ext_resource type="Shader" path="res://assets/basketball.gdshader" id="2"]
 
 [sub_resource type="SphereShape3D" id="Shape"]
 radius = 0.65
 
-[sub_resource type="StandardMaterial3D" id="Material"]
-albedo_color = Color(0.95, 0.32, 0.035, 1)
-roughness = 0.85
+[sub_resource type="ShaderMaterial" id="Material"]
+shader = ExtResource("2")
 
 [sub_resource type="SphereMesh" id="Mesh"]
 material = SubResource("Material")
