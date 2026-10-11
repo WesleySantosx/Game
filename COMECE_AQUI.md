@@ -11,7 +11,7 @@ Abra `project.godot` na Godot e pressione F5 para jogar. O projeto usa Godot 4.
 
 ## Estado atual
 
-Sete bolas aparecem em pontos sorteados do labirinto. Na sexta coleta, o Ruan aparece e a imagem de entrada é exibida. O Josias começa no sul do mapa e persegue o jogador quando ele chega a 15 metros. A captura, a perda das bolas e as condições de vitória e derrota ainda precisam ser implementadas.
+Sete bolas aparecem em pontos sorteados do labirinto. Na sexta coleta, o Ruan aparece e a imagem de entrada é exibida. O Josias começa no sul do mapa e já inicia a caçada, seguindo os corredores até o jogador. A captura, a perda das bolas e as condições de vitória e derrota ainda precisam ser implementadas.
 
 ## Onde mexer
 
