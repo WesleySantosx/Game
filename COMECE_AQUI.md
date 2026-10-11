@@ -1,35 +1,24 @@
-# Primeiro prototipo
+# Resgate do Serjo
 
-Abra `project.godot` na Godot e pressione F6 com `scenes/main.tscn` aberta, ou F5 para executar o projeto.
+Abra `project.godot` na Godot e pressione F5 para jogar. O projeto usa Godot 4.
 
 ## Controles
 
-- WASD: andar.
-- Mouse: olhar.
-- Shift: correr.
-- F: ligar/desligar lanterna.
-- Esc: liberar/capturar mouse (nao pausa a partida).
-- Clique esquerdo: capturar mouse novamente.
-- R: reiniciar a sala.
+- WASD: andar; Shift: correr; mouse: olhar.
+- F: ligar/desligar a lanterna.
+- Esc: liberar/capturar o mouse; clique esquerdo: capturar novamente.
+- R: reiniciar a partida.
 
-## O que testar
+## Estado atual
 
-1. Ande pela sala e tente atravessar as paredes: a colisao deve impedir.
-2. Mire a lanterna nas paredes e desligue com F.
-3. Encoste na bola laranja: ela desaparece e o contador muda para 1/7.
-4. Aperte R: a bola volta e o contador zera.
+Sete bolas aparecem em pontos sorteados do labirinto. Na sexta coleta, o Ruan aparece e a imagem de entrada é exibida. O Josias começa no sul do mapa e persegue o jogador quando ele chega a 15 metros. A captura, a perda das bolas e as condições de vitória e derrota ainda precisam ser implementadas.
 
 ## Onde mexer
 
-- `scenes/main.tscn`: sala de teste, luzes e posicoes do jogador e bola. Edite pela aba 3D.
-- `scenes/player.tscn`: colisao, camera e lanterna do jogador.
-- `scripts/player.gd`: movimento e controles. Velocidades aparecem no Inspetor do Player.
-- `scenes/ball.tscn`: visual e area de coleta da bola (modelo provisório).
-- `scripts/ball.gd`: animacao e aviso de coleta.
-- `scripts/main.gd`: contador da partida e reinicio.
+- `scenes/main.tscn`: mapa, pontos de aparecimento das bolas e do Josias.
+- `scripts/main.gd`: sorteio das bolas, contador e entrada do Ruan.
+- `scenes/josias_mosntro.tscn` e `scripts/killer.gd`: visual, colisão e perseguição do Josias.
+- `scenes/player.tscn` e `scripts/player.gd`: jogador, câmera, lanterna e controles.
+- `navigation/labyrinth_navmesh.tres`: caminhos usados pelo Josias.
 
-Esta etapa tem uma unica bola para aprender e testar a base. Ainda faltam as outras seis, o labirinto, Serjo, Josias, Ruan, tempo e finais.
-
-Proximo marco: espalhar sete bolas e centralizar a contagem num controlador da partida. Depois adicionar as regras de captura e os inimigos.
-
-Os arquivos ficam locais ate voces fazerem commit e push. Nao versionem a pasta `.godot/`.
+Depois de mudar paredes ou piso, gere novamente a malha de navegação com `godot --headless --path . --script res://tools/bake_nav.gd` na pasta do projeto. Confira também se cada marcador de `BallSpawns` continua acessível. Não versionem a pasta `.godot/`.

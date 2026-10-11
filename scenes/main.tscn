@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://8me0vsiae46e" path="res://scripts/main.gd" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/player.tscn" id="2"]
 [ext_resource type="PackedScene" uid="uid://v3l1d25fpkgm" path="res://scenes/josias_mosntro.tscn" id="3_sugp2"]
+[ext_resource type="NavigationMesh" path="res://navigation/labyrinth_navmesh.tres" id="4_navmesh"]
 
 [sub_resource type="Environment" id="Environment"]
 background_mode = 1
@@ -10,8 +11,6 @@ background_color = Color(0.025, 0.03, 0.045, 1)
 ambient_light_source = 3
 ambient_light_color = Color(0.35, 0.4, 0.55, 1)
 ambient_light_energy = 0.18
-
-[sub_resource type="NavigationMesh" id="NavigationMesh_8nlbl"]
 
 [sub_resource type="StandardMaterial3D" id="FloorMaterial"]
 albedo_color = Color(0.18, 0.2, 0.22, 1)
@@ -33,7 +32,7 @@ script = ExtResource("1")
 environment = SubResource("Environment")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1986271189]
-navigation_mesh = SubResource("NavigationMesh_8nlbl")
+navigation_mesh = ExtResource("4_navmesh")
 
 [node name="Floor" type="StaticBody3D" parent="." unique_id=420133892]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
@@ -316,21 +315,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.8, 0.6, 5.3)
 [node name="Marker3D3" type="Marker3D" parent="BallSpawns" unique_id=1003716500]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.6, 0.6, 6.5)
 
-[node name="Marker3D4" type="Marker3D" parent="BallSpawns" unique_id=469853738]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.982, 0.6, 0)
-
-[node name="Marker3D5" type="Marker3D" parent="BallSpawns" unique_id=1605488106]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 0.6, -6.7)
-
-[node name="Marker3D6" type="Marker3D" parent="BallSpawns" unique_id=1785636997]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.342599, 0.6, -4.425)
-
-[node name="Marker3D7" type="Marker3D" parent="BallSpawns" unique_id=336650267]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 0.6, 11.9)
-
-[node name="Marker3D8" type="Marker3D" parent="BallSpawns" unique_id=196400983]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.4, 0.6, 14.5)
-
 [node name="Marker3D9" type="Marker3D" parent="BallSpawns" unique_id=862836131]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.6, 16.5)
 
@@ -339,9 +323,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.8, 0.6, 14.5)
 
 [node name="Marker3D11" type="Marker3D" parent="BallSpawns"]
 position = Vector3(10, 0.6, 11.6)
-
-[node name="Marker3D12" type="Marker3D" parent="BallSpawns"]
-position = Vector3(-5, 0.6, 19.2)
 
 [node name="Marker3D13" type="Marker3D" parent="BallSpawns"]
 position = Vector3(1, 0.6, 22.3)
@@ -389,3 +370,4 @@ theme_override_font_sizes/font_size = 24
 text = "+"
 
 [node name="Josias" parent="." unique_id=1703306832 instance=ExtResource("3_sugp2")]
+position = Vector3(13.8, 0, 19.5)
