@@ -1,0 +1,9 @@
+[gd_scene format=3]
+
+[ext_resource type="ArrayMesh" path="res://models/josias_textured/josias_mesh.tres" id="1_2jfrf"]
+
+[node name="Josias" type="Node3D" unique_id=1026555908]
+
+[node name="Visual" type="MeshInstance3D" parent="." unique_id=1335208203]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+mesh = ExtResource("1_2jfrf")

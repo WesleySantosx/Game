@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/josias.tscn" id="1"]
+
+[sub_resource type="Environment" id="Env"]
+background_mode = 1
+background_color = Color(0.055, 0.067, 0.09, 1)
+ambient_light_source = 3
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.7
+tonemap_mode = 0
+
+[sub_resource type="StandardMaterial3D" id="FloorMat"]
+albedo_color = Color(0.11, 0.13, 0.17, 1)
+roughness = 1.0
+
+[sub_resource type="PlaneMesh" id="FloorMesh"]
+material = SubResource("FloorMat")
+size = Vector2(20, 20)
+
+[node name="JosiasPreview" type="Node3D"]
+
+[node name="Environment" type="WorldEnvironment" parent="."]
+environment = SubResource("Env")
+
+[node name="JosiasFront" parent="." instance=ExtResource("1")]
+position = Vector3(0.9, 0, 0)
+
+[node name="JosiasBack" parent="." instance=ExtResource("1")]
+position = Vector3(-0.9, 0, 0)
+rotation = Vector3(0, 3.1415927, 0)
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+mesh = SubResource("FloorMesh")
+
+[node name="Light" type="DirectionalLight3D" parent="."]
+rotation_degrees = Vector3(-35, 155, 0)
+light_energy = 0.9
+shadow_enabled = true
+
+[node name="Camera" type="Camera3D" parent="."]
+position = Vector3(0, 1.0, -5)
+rotation = Vector3(0, 3.1415927, 0)
+projection = 1
+size = 2.5
+current = true
