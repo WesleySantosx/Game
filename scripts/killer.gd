@@ -56,7 +56,7 @@ func _physics_process(delta: float) -> void:
 		if chasing:
 			path_update_time -= delta
 			if path_update_time <= 0.0:
-				navigation_agent.target_position = player.global_position
+				navigation_agent.target_position = chase_target()
 				path_update_time = path_update_interval
 			var next_position := navigation_agent.get_next_path_position()
 			if not navigation_agent.is_navigation_finished():
@@ -100,3 +100,7 @@ func _try_capture() -> void:
 			if body.tomar_dano():
 				stun(1.2)
 			break
+
+
+func chase_target() -> Vector3:
+	return player.global_position

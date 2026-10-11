@@ -7,6 +7,8 @@ const RUAN_SCENE = preload("res://scenes/ruan_enemy.tscn")
 const RUAN_INTRO_SCENE = preload("res://scenes/ruan_intro.tscn")
 const BASKET_ENDING = preload("res://scenes/basket_ending.tscn")
 const TOTAL_BALLS: int = 7
+const FEATURES = preload("res://scripts/game_features.gd")
+var features: Node
 
 @export var round_seconds: float = 300.0
 var state: State = State.MENU
@@ -39,6 +41,9 @@ func _ready() -> void:
 	hud.quit_requested.connect(quit_game)
 	time_left = round_seconds
 	_setup_ambient()
+	features = FEATURES.new()
+	add_child(features)
+	features.setup(self)
 	player.set_controls_enabled(false)
 	josias.set_physics_process(false)
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -77,10 +82,16 @@ func _physics_process(delta: float) -> void:
 		hud.prompt.text = "[E] Libertar o Serjo" if balls_collected == 7 else "Serjo precisa das 7 bolas (%d / 7)" % balls_collected
 	else:
 		hud.prompt.text = ""
+	features.tick(delta)
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT and state == State.PLAYING:
+		features.fire()
+		return
 	if not (event is InputEventKey and event.pressed and not event.echo):
+		return
+	if state == State.PLAYING and features.handle_key(event.physical_keycode):
 		return
 	match event.physical_keycode:
 		KEY_ESCAPE:
@@ -207,15 +218,23 @@ func _on_player_hurt(_remaining: int) -> void:
 	hud.flash_hit()
 	play_sound("hurt")
 	play_sound("capture", -2.0)
-	held_indices.clear()
-	balls_collected = 0
-	josias.set_anger(0)
-	serjo.set_unlocked(false)
-	clear_balls()
-	hud.message.text = "VIU AI FESO! O Josias espalhou todas as bolas. Corre!"
-	if player.vidas > 0:
-		spawn_balls.call_deferred()
+	var lost: int = features.lose_on_hit()
+	lose_balls(lost)
+	hud.message.text = "VIU AI FESO! Perdeu %d bolas e uma vida. Corre!" % lost
 	_update_hud()
+
+
+func lose_balls(amount: int) -> void:
+	for i in mini(amount, held_indices.size()):
+		held_indices.pop_back()
+	balls_collected = held_indices.size()
+	josias.set_anger(balls_collected)
+	ambient.pitch_scale = 1.0 + float(balls_collected) * 0.025
+	serjo.set_unlocked(balls_collected == 7)
+	clear_balls()
+	# Síncrono: duas perdas no mesmo quadro não duplicam as bolas.
+	if player.vidas > 0 and not game_over:
+		spawn_balls()
 
 
 func _on_player_died() -> void:
@@ -250,22 +269,7 @@ func spawn_ruan() -> void:
 func _on_ruan_capture() -> void:
 	if state != State.PLAYING:
 		return
-	var lost := mini(2, balls_collected)
-	for i in lost:
-		held_indices.pop_back()
-	balls_collected = held_indices.size()
-	player.grant_protection(3.5)
-	josias.stun(3.5)
-	player.global_position = _drop_position_near_josias()
-	player.velocity = Vector3.ZERO
-	josias.set_anger(balls_collected)
-	serjo.set_unlocked(balls_collected == 7)
-	clear_balls()
-	spawn_balls.call_deferred()
-	hud.flash_hit()
-	play_sound("ruan")
-	hud.message.text = "O Ruan te levou até o Josias! Perdeu %d bolas. O Josias está atordoado: foge!" % lost
-	_update_hud()
+	features.begin_carry()
 
 
 func _drop_position_near_josias() -> Vector3:
@@ -298,6 +302,7 @@ func _finish(reason: String) -> void:
 		return
 	state = State.ENDING
 	game_over = true
+	features.cleanup()
 	player.set_controls_enabled(false)
 	josias.velocity = Vector3.ZERO
 	josias.set_physics_process(false)
@@ -322,7 +327,7 @@ func _finish(reason: String) -> void:
 		add_child(cinematic)
 		cinematic.position = Vector3(100, 0, 100)
 		play_sound("lose")
-		description = "O Josias te pegou 3 vezes e acertou a cesta. Fim de jogo!"
+		description = "Acabaram suas vidas! O Josias acertou a cesta. Fim de jogo!"
 		await get_tree().create_timer(3.2).timeout
 	else:
 		serjo.prisoner.hide()

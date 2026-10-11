@@ -17,6 +17,11 @@ var tempo_invulneravel: float = 0.0
 var controls_enabled: bool = true
 var footsteps: AudioStreamPlayer
 var footstep_time: float = 0.0
+var carried: bool = false
+var stamina: float = 100.0
+var stamina_delay: float = 0.0
+var sprint_locked: bool = false
+var upgrades: Array[String] = []
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -52,14 +57,26 @@ func _unhandled_input(event: InputEvent) -> void:
 func _physics_process(delta: float) -> void:
 	tempo_invulneravel = maxf(tempo_invulneravel - delta, 0.0)
 	invulneravel = tempo_invulneravel > 0.0
-	var input_direction := Vector2.ZERO
-	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-		input_direction = Vector2(
-			float(Input.is_physical_key_pressed(KEY_D)) - float(Input.is_physical_key_pressed(KEY_A)),
-			float(Input.is_physical_key_pressed(KEY_S)) - float(Input.is_physical_key_pressed(KEY_W))
-		).normalized()
+	if carried:
+		velocity = Vector3.ZERO
+		return
+	var input_direction := Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	var direction := transform.basis * Vector3(input_direction.x, 0, input_direction.y)
-	var speed := sprint_speed if Input.is_physical_key_pressed(KEY_SHIFT) else walk_speed
+	if stamina >= 25.0:
+		sprint_locked = false
+	var sprinting := Input.is_action_pressed("sprint") and input_direction.length() > 0.1 and not sprint_locked and stamina > 0.0
+	var speed := sprint_speed * (1.18 if upgrades.has("shoes") else 1.0) if sprinting else walk_speed
+	if sprinting:
+		stamina = maxf(0.0, stamina - delta * 20.0)
+		stamina_delay = 0.4 if upgrades.has("lungs") else 0.9
+		if stamina == 0.0:
+			sprint_locked = true
+	else:
+		stamina_delay = maxf(0.0, stamina_delay - delta)
+		if stamina_delay <= 0.0:
+			stamina = minf(100.0, stamina + delta * (34.0 if upgrades.has("lungs") else 20.0))
+	var camera: Camera3D = $Head/Camera3D
+	camera.fov = lerpf(camera.fov, 82.0 if sprinting else 75.0, minf(delta * 6.0, 1.0))
 	velocity.x = direction.x * speed
 	velocity.z = direction.z * speed
 	if not is_on_floor():
@@ -72,10 +89,10 @@ func _physics_process(delta: float) -> void:
 		if footstep_time <= 0:
 			footsteps.pitch_scale = randf_range(1.0, 1.15)
 			footsteps.play()
-			footstep_time = 0.3 if speed == sprint_speed else 0.48
+			footstep_time = 0.3 if sprinting else 0.48
 
 func tomar_dano() -> bool:
-	if invulneravel or vidas <= 0 or not controls_enabled:
+	if invulneravel or carried or vidas <= 0 or not controls_enabled:
 		return false
 
 	vidas -= 1

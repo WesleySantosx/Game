@@ -37,12 +37,22 @@ Mantenha o executavel, o PCK e o launcher juntos.
 Nao precisa instalar Godot para jogar este pacote portatil.
 
 WASD: mover | Shift: correr | Mouse: olhar | F: lanterna
-E: libertar Serjo com 7 bolas | Esc: pausar | R: reiniciar
+E: interagir | Q: revelar bola (mao) | Clique: arma
+Espaco: teste de habilidade | 1/2: trocar melhoria
+Fat: E conversar, G tentar arma, T trocar 5 bolas por +1 vida
+Esc: pausar | R: reiniciar
 F11: alternar tela cheia.
 
-5 minutos e 3 vidas. Josias tira uma vida e espalha todas as bolas.
-Na sexta bola o Ruan aparece: ele rouba duas bolas e leva voce
-para perto do Josias, que fica atordoado por alguns segundos.
+5 minutos, 3 vidas iniciais e 7 bolas para resgatar Serjo na cela verde.
+Josias tira 1 vida. Primeira pancada: metade das bolas (arredonda
+para baixo; se tem uma, perde uma). Da segunda em diante: todas.
+Ruan aparece na sexta bola e carrega voce: acerte tres testes no
+verde para escapar. Se for entregue, perde 2 bolas; Josias fica
+atordoado por 3,5s. O relogio continua durante os desafios.
+Equipe ate 2 melhorias: tenis (velocidade), pulmao (stamina),
+mao (revela bola por 6s, recarga de 45s). Arma ocupa outro espaco.
+Fat: uma vida extra por partida. Arma: oferta de 70%, duas chances,
+dois arremessos seguidos. Tres tiros, intervalo 12s, stun 4,5s.
 
 O pacote usa o executavel local da Godot para carregar o jogo.
 Licencas da engine e de bibliotecas acompanham esta pasta.

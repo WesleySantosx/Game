@@ -15,7 +15,7 @@ func _process(delta: float) -> void:
 	$Mesh.rotate_y(delta)
 
 func _on_body_entered(body: Node3D) -> void:
-	if taken or not body.is_in_group("player"):
+	if taken or not body.is_in_group("player") or body.carried:
 		return
 	taken = true
 	collected.emit(self)

@@ -18,6 +18,16 @@ var message: Label
 var prompt: Label
 var flash: ColorRect
 var flash_tween: Tween
+var stamina_bar: ProgressBar
+var equipment: Label
+var stun_label: Label
+var skill_panel: Control
+var skill_title: Label
+var skill_track: ColorRect
+var skill_zone: ColorRect
+var skill_pointer: ColorRect
+var scare: TextureRect
+var scare_time: float = 0.0
 
 
 func _ready() -> void:
@@ -34,6 +44,16 @@ func _ready() -> void:
 	counter = _label(info, "Bolas: 0 / 7", 28, Vector2(24, 20), Vector2(350, 42))
 	lives = _label(info, "Vidas: 3 / 3", 22, Vector2(24, 62), Vector2(350, 34))
 	anger = _label(info, "Josias: CALMO", 18, Vector2(24, 99), Vector2(450, 30))
+	stamina_bar = ProgressBar.new()
+	info.add_child(stamina_bar)
+	stamina_bar.position = Vector2(24, 139)
+	stamina_bar.size = Vector2(240, 16)
+	stamina_bar.show_percentage = false
+	equipment = _label(info, "", 17, Vector2(24, 165), Vector2(650, 115))
+	stun_label = _label(info, "", 22, Vector2(-470, 85), Vector2(440, 95))
+	stun_label.anchor_left = 1.0
+	stun_label.anchor_right = 1.0
+	stun_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	clock = _label(info, "05:00", 32, Vector2(-200, 20), Vector2(175, 50))
 	clock.anchor_left = 1.0
 	clock.anchor_right = 1.0
@@ -55,7 +75,7 @@ func _ready() -> void:
 	prompt.anchor_bottom = 0.5
 	prompt.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	prompt.modulate = Color(0.65, 1, 0.75)
-	var help := _label(info, "WASD: mover   SHIFT: correr   F: lanterna   E: interagir   ESC: pausar   R: reiniciar   F11: tela cheia", 16, Vector2(24, -38), Vector2(1200, 30))
+	var help := _label(info, "WASD mover  SHIFT correr  F lanterna  E interagir  Q revelar  Clique disparar  ESPAÇO habilidade  ESC pausa", 15, Vector2(24, -38), Vector2(1240, 30))
 	help.anchor_top = 1.0
 	help.anchor_bottom = 1.0
 	help.modulate = Color(0.65, 0.7, 0.8)
@@ -64,6 +84,36 @@ func _ready() -> void:
 	flash.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	flash.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	flash.color = Color(0.85, 0, 0, 0)
+	scare = TextureRect.new()
+	root.add_child(scare)
+	scare.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	scare.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	scare.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+	scare.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	scare.hide()
+	skill_panel = Control.new()
+	info.add_child(skill_panel)
+	skill_panel.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+	skill_panel.offset_left = -260
+	skill_panel.offset_right = 260
+	skill_panel.offset_top = 170
+	skill_panel.offset_bottom = 260
+	skill_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	skill_title = _label(skill_panel, "", 22, Vector2(0, -42), Vector2(520, 40))
+	skill_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	skill_track = ColorRect.new()
+	skill_panel.add_child(skill_track)
+	skill_track.size = Vector2(520, 26)
+	skill_track.color = Color(0.06, 0.07, 0.1, 0.95)
+	skill_zone = ColorRect.new()
+	skill_track.add_child(skill_zone)
+	skill_zone.color = Color(0.25, 0.95, 0.45)
+	skill_pointer = ColorRect.new()
+	skill_track.add_child(skill_pointer)
+	skill_pointer.size = Vector2(5, 40)
+	skill_pointer.position.y = -7
+	skill_pointer.color = Color.WHITE
+	skill_panel.hide()
 	overlay = ColorRect.new()
 	root.add_child(overlay)
 	overlay.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -131,7 +181,7 @@ func show_menu() -> void:
 
 
 func show_instructions() -> void:
-	_screen("COMO JOGAR", "WASD: andar • Shift: correr • Mouse: olhar • F: lanterna\nE: libertar o Serjo • Esc: pausar • F11: tela cheia\nJosias: perde 1 vida e todas as bolas. Na terceira captura, você perde.\nRuan: perde 2 bolas e vai parar perto do Josias, que fica atordoado por alguns segundos.\nAs bolas perdidas voltam ao mapa. Corra antes que o tempo acabe!")
+	_screen("COMO JOGAR", "WASD andar • Shift correr (stamina) • F lanterna • E interagir\nJosias tira 1 vida: primeira pancada perde metade das bolas; depois, todas.\nRuan carrega até Josias: acerte 3 testes com ESPAÇO para escapar!\nPegue até 2 melhorias. Com slots cheios, 1 ou 2 troca o item. Q usa a mão.\nFat: E conversar, G tentar arma, T trocar 5 bolas por uma vida extra.\nArma: acerte 2 testes; clique atira. Verde = ESPAÇO! Esc pausa; R reinicia.")
 	_button("Voltar", show_menu, true)
 
 
@@ -175,7 +225,7 @@ func show_cinematic() -> void:
 
 func update_status(balls: int, health: int, seconds: float) -> void:
 	counter.text = "Bolas: %d / 7" % balls
-	lives.text = "Vidas: %d / 3" % health
+	lives.text = "Vidas: %d" % health
 	var total := ceili(maxf(0, seconds))
 	clock.text = "%02d:%02d" % [total / 60, total % 60]
 	clock.modulate = Color(1, 0.35, 0.3) if seconds <= 60 else Color.WHITE
@@ -190,3 +240,25 @@ func flash_hit() -> void:
 	flash.color.a = 0.4
 	flash_tween = create_tween()
 	flash_tween.tween_property(flash, "color:a", 0.0, 0.6)
+
+
+func update_skill(active: bool, title: String, progress: float, zone_start: float, zone_width: float) -> void:
+	skill_panel.visible = active
+	skill_title.text = title
+	skill_zone.position.x = zone_start * 520.0
+	skill_zone.size = Vector2(zone_width * 520.0, 26)
+	skill_pointer.position.x = progress * 515.0
+
+
+func jumpscare(who: String) -> void:
+	scare.texture = load("res://models/ruan_textured/ruan_face.png" if who == "ruan" else "res://models/josias_textured/josias_face.png")
+	scare.modulate = Color(1.0, 0.65, 0.65)
+	scare_time = 0.55
+	scare.show()
+
+
+func tick_effects(delta: float) -> void:
+	scare_time = maxf(0, scare_time - delta)
+	scare.visible = scare_time > 0
+	if scare_time > 0:
+		scare.modulate.a = minf(1.0, scare_time / 0.15)

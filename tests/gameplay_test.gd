@@ -73,9 +73,17 @@ func run() -> void:
 	main.ruan.set_physics_process(true)
 	for frame in 20:
 		await physics_frame
-		if main.balls_collected == 5:
+		if main.player.carried:
+			break
+	check(main.player.carried and main.balls_collected == 7, "Ruan nao iniciou transporte sem roubo instantaneo")
+	var pickup_position: Vector3 = main.ruan.global_position
+	main.ruan.speed = 3.2
+	for frame in 1200:
+		await physics_frame
+		if not main.player.carried:
 			break
 	check(main.balls_collected == 5 and main.player.vidas == 3, "Ruan nao roubou exatamente 2 bolas sem dano")
+	check(main.ruan.global_position.distance_to(pickup_position) > 2, "Ruan nao caminhou carregando o jogador")
 	check(main.josias.stun_remaining > 3 and main.player.invulneravel, "Ruan nao atordoou o Josias ou protegeu o jogador")
 	check(main.player.global_position.distance_to(main.josias.global_position) <= 3.2, "Ruan nao levou o jogador para perto do Josias")
 	for frame in 3:
@@ -83,7 +91,7 @@ func run() -> void:
 	check(main.spawned_balls.size() == 2, "Bolas perdidas pelo Ruan nao voltaram")
 	main.ruan.set_physics_process(false)
 	main.ruan.global_position = Vector3(13.4, 0, -6.7)
-	print("PASS: raiva, sexta bola, Ruan por contato, roubo, teleporte e atordoamento.")
+	print("PASS: raiva, sexta bola, Ruan por contato, transporte real, roubo e atordoamento.")
 	main.player.global_position = Vector3(0, 0.05, 5)
 	main.player.velocity = Vector3.ZERO
 	main.player.invulneravel = false
@@ -95,11 +103,11 @@ func run() -> void:
 		await physics_frame
 		if main.player.vidas == 2:
 			break
-	check(main.player.vidas == 2 and main.balls_collected == 0, "Josias nao causou dano e zerou as bolas: vidas=%s player=%s josias=%s" % [main.player.vidas, main.player.global_position, main.josias.global_position])
+	check(main.player.vidas == 2 and main.balls_collected == 3, "Primeira pancada com 5 bolas deve tirar 2: vidas=%s bolas=%s" % [main.player.vidas, main.balls_collected])
 	check(not main.player.tomar_dano(), "Invulnerabilidade permitiu dano repetido")
 	for frame in 30:
 		await physics_frame
-	check(main.spawned_balls.size() == 7 and main.player.vidas == 2, "Redistribuicao ou protecao incorreta")
+	check(main.spawned_balls.size() == 4 and main.player.vidas == 2, "Redistribuicao ou protecao incorreta")
 	var before_pause: float = main.time_left
 	var immunity: float = main.player.tempo_invulneravel
 	var enemy_position: Vector3 = main.josias.global_position
@@ -117,7 +125,7 @@ func run() -> void:
 	check(main.has_node("BasketEnding"), "Cinematica da cesta ausente")
 	check(not main.player.controls_enabled and not main.josias.is_physics_processing(), "Controles ativos depois da derrota")
 	check(Input.mouse_mode == Input.MOUSE_MODE_VISIBLE, "Mouse preso na derrota")
-	print("PASS: dano, protecao, sete bolas redistribuidas, pausa e derrota com cesta.")
+	print("PASS: dano parcial, protecao, bolas redistribuidas, pausa e derrota com cesta.")
 	main.restart_game()
 	await process_frame
 	await process_frame
