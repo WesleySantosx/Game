@@ -2,8 +2,11 @@ extends Node3D
 
 const BALL_SCENE = preload("res://scenes/ball.tscn")
 const TOTAL_BALLS: int = 7
+const RUAN_SCENE = preload("res://scenes/ruan.tscn")
+const RUAN_INTRO_SCENE = preload("res://scenes/ruan_intro.tscn")
 
 var balls_collected: int = 0
+var ruan_spawned: bool = false
 
 
 func _ready() -> void:
@@ -50,5 +53,29 @@ func _on_ball_collected() -> void:
 
 	if balls_collected == TOTAL_BALLS:
 		$HUD/Message.text = "Pegou todas as bolas!"
+	elif balls_collected == 6:
+		spawn_ruan()
+		$HUD/Message.text = "O Ruan apareceu! Falta uma bola."
 	else:
 		$HUD/Message.text = "Boa! Continua procurando."
+
+
+func spawn_ruan() -> void:
+	if ruan_spawned:
+		return
+	ruan_spawned = true
+	# Usa um ponto livre do mapa, longe do jogador.
+	var spawn_point: Marker3D = $BallSpawns.get_child(0)
+	for point in $BallSpawns.get_children():
+		if point is Marker3D and point.global_position.distance_squared_to($Player.global_position) > spawn_point.global_position.distance_squared_to($Player.global_position):
+			spawn_point = point
+	var ruan = RUAN_SCENE.instantiate()
+	ruan.name = "Ruan"
+	add_child(ruan)
+	ruan.global_position = Vector3(spawn_point.global_position.x, 0.0, spawn_point.global_position.z)
+	var target = Vector3($Player.global_position.x, 0.0, $Player.global_position.z)
+	if ruan.global_position.distance_to(target) > 0.1:
+		ruan.look_at(target, Vector3.UP)
+	var intro = RUAN_INTRO_SCENE.instantiate()
+	add_child(intro)
+	intro.play_intro()

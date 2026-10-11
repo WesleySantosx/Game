@@ -8,17 +8,17 @@ background_mode = 1
 background_color = Color(0.025, 0.03, 0.045, 1)
 ambient_light_source = 3
 ambient_light_color = Color(0.35, 0.4, 0.55, 1)
-ambient_light_energy = 0.35
+ambient_light_energy = 0.18
 
 [sub_resource type="StandardMaterial3D" id="FloorMaterial"]
 albedo_color = Color(0.18, 0.2, 0.22, 1)
 
 [sub_resource type="BoxMesh" id="FloorMesh"]
 material = SubResource("FloorMaterial")
-size = Vector3(16, 0.5, 16)
+size = Vector3(25.236084, 0.5, 31.908081)
 
 [sub_resource type="BoxShape3D" id="FloorShape"]
-size = Vector3(16, 0.5, 16)
+size = Vector3(25.236084, 0.5, 31.908081)
 
 [sub_resource type="StandardMaterial3D" id="WallMaterial"]
 albedo_color = Color(0.27, 0.3, 0.34, 1)
@@ -33,46 +33,268 @@ environment = SubResource("Environment")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
 
 [node name="Mesh" type="MeshInstance3D" parent="Floor" unique_id=75510773]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.618042, 0, 7.9540405)
 mesh = SubResource("FloorMesh")
 
 [node name="Collision" type="CollisionShape3D" parent="Floor" unique_id=2139075523]
+position = Vector3(4.618042, 0, 7.9540405)
 shape = SubResource("FloorShape")
 
 [node name="NorthWall" type="CSGBox3D" parent="." unique_id=278968013]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.003418, 1.5, -8)
 use_collision = true
-size = Vector3(16, 3, 0.4)
+size = Vector3(24.006836, 3, 0.4)
 material = SubResource("WallMaterial")
 
 [node name="SouthWall" type="CSGBox3D" parent="." unique_id=2071896857]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.968548, 1.5, 10.130712)
 use_collision = true
-size = Vector3(16, 3, 0.4)
+size = Vector3(7.873024, 3, 0.4)
+material = SubResource("WallMaterial")
+
+[node name="SouthWall4" type="CSGBox3D" parent="." unique_id=888164043]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2207413, 1.5, 8)
+use_collision = true
+size = Vector3(5.759598, 3, 0.4)
+material = SubResource("WallMaterial")
+
+[node name="SouthWall6" type="CSGBox3D" parent="." unique_id=393604739]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.987545, 1.5, 21.111307)
+use_collision = true
+size = Vector3(0.2259903, 3, 3.2713685)
+material = SubResource("WallMaterial")
+
+[node name="SouthWall8" type="CSGBox3D" parent="." unique_id=1325346534]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.987545, 1.5, 16.934353)
+use_collision = true
+size = Vector3(0.2259903, 3, 2.907138)
+material = SubResource("WallMaterial")
+
+[node name="SouthWall13" type="CSGBox3D" parent="." unique_id=627772170]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.351739, 1.5, 16.423058)
+use_collision = true
+size = Vector3(0.2259903, 3, 11.70585)
+material = SubResource("WallMaterial")
+
+[node name="SouthWall7" type="CSGBox3D" parent="." unique_id=1629596057]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.987545, 1.5, 10.827242)
+use_collision = true
+size = Vector3(0.2259903, 3, 6.0865602)
+material = SubResource("WallMaterial")
+
+[node name="SouthWall5" type="CSGBox3D" parent="." unique_id=106581243]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.816093, 1.5, 8)
+use_collision = true
+size = Vector3(5.6876984, 3, 0.4)
+material = SubResource("WallMaterial")
+
+[node name="SouthWall22" type="CSGBox3D" parent="." unique_id=1777226983]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.174273, 1.5, -5.4058814)
+use_collision = true
+size = Vector3(9.944874, 3, 0.4)
+material = SubResource("WallMaterial")
+
+[node name="SouthWall29" type="CSGBox3D" parent="." unique_id=1906674481]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2926445, 1.5, -5.4058814)
+use_collision = true
+size = Vector3(3.175562, 3, 0.4)
+material = SubResource("WallMaterial")
+
+[node name="SouthWall23" type="CSGBox3D" parent="." unique_id=1390914989]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.346685, 1.5, -2.6242933)
+use_collision = true
+size = Vector3(4.6265144, 3, 0.4)
+material = SubResource("WallMaterial")
+
+[node name="SouthWall24" type="CSGBox3D" parent="." unique_id=542313378]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.150652, 1.5, -2.6242933)
+use_collision = true
+size = Vector3(5.11355, 3, 0.4)
+material = SubResource("WallMaterial")
+
+[node name="SouthWall28" type="CSGBox3D" parent="." unique_id=396735339]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.39417, 1.5, 4.31689)
+use_collision = true
+size = Vector3(4.6265144, 3, 0.4)
+material = SubResource("WallMaterial")
+
+[node name="SouthWall25" type="CSGBox3D" parent="." unique_id=674681273]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.7602296, 1.5, 0.28196764)
+use_collision = true
+size = Vector3(10.1859255, 3, 0.4)
+material = SubResource("WallMaterial")
+
+[node name="SouthWall26" type="CSGBox3D" parent="." unique_id=303591822]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.472496, 1.5, 2.4420342)
+use_collision = true
+size = Vector3(2.2811403, 3, 0.4)
+material = SubResource("WallMaterial")
+
+[node name="SouthWall27" type="CSGBox3D" parent="." unique_id=70896756]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.046691, 1.5, 5.138736)
+use_collision = true
+size = Vector3(2.2811403, 3, 0.4)
+material = SubResource("WallMaterial")
+
+[node name="SouthWall3" type="CSGBox3D" parent="." unique_id=1652231387]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.723877, 1.5, 8)
+use_collision = true
+size = Vector3(6.552246, 3, 0.4)
+material = SubResource("WallMaterial")
+
+[node name="SouthWall30" type="CSGBox3D" parent="." unique_id=1182855914]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.723877, 1.5, 1.6064072)
+use_collision = true
+size = Vector3(6.552246, 3, 0.4)
+material = SubResource("WallMaterial")
+
+[node name="SouthWall9" type="CSGBox3D" parent="." unique_id=742404369]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.972229, 1.5, 10.7747)
+use_collision = true
+size = Vector3(12.055542, 3, 0.4)
+material = SubResource("WallMaterial")
+
+[node name="SouthWall14" type="CSGBox3D" parent="." unique_id=292904712]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4323502, 1.5, 18.041828)
+use_collision = true
+size = Vector3(9.978256, 3, 0.35136718)
+material = SubResource("WallMaterial")
+
+[node name="SouthWall20" type="CSGBox3D" parent="." unique_id=237358836]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5055733, 1.5, 20.5337)
+use_collision = true
+size = Vector3(6.1024094, 3, 0.35136718)
+material = SubResource("WallMaterial")
+
+[node name="SouthWall21" type="CSGBox3D" parent="." unique_id=2018173836]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.490671, 1.5, 20.5337)
+use_collision = true
+size = Vector3(3.6392174, 3, 0.35136718)
+material = SubResource("WallMaterial")
+
+[node name="SouthWall10" type="CSGBox3D" parent="." unique_id=1196705438]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.970093, 1.5, 13.312821)
+use_collision = true
+size = Vector3(2.0598145, 3, 0.4)
+material = SubResource("WallMaterial")
+
+[node name="SouthWall15" type="CSGBox3D" parent="." unique_id=1236345027]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.897978, 1.5, 15.800206)
+use_collision = true
+size = Vector3(2.0598145, 3, 0.4)
+material = SubResource("WallMaterial")
+
+[node name="SouthWall11" type="CSGBox3D" parent="." unique_id=2100404474]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.1506538, 1.5, 13.312821)
+use_collision = true
+size = Vector3(3.022583, 3, 0.4)
+material = SubResource("WallMaterial")
+
+[node name="SouthWall12" type="CSGBox3D" parent="." unique_id=266858277]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.098884, 1.5, 13.312821)
+use_collision = true
+size = Vector3(6.0479736, 3, 0.4)
+material = SubResource("WallMaterial")
+
+[node name="SouthWall16" type="CSGBox3D" parent="." unique_id=1978506039]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.886034, 1.5, 13.312821)
+use_collision = true
+size = Vector3(8.457779, 3, 0.4)
+material = SubResource("WallMaterial")
+
+[node name="SouthWall19" type="CSGBox3D" parent="." unique_id=1903978253]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.721137, 1.5, 16.031921)
+use_collision = true
+size = Vector3(7.7026978, 3, 0.4)
+material = SubResource("WallMaterial")
+
+[node name="SouthWall17" type="CSGBox3D" parent="." unique_id=617221288]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.002848, 1.5, 18.011127)
+use_collision = true
+size = Vector3(7.7026978, 3, 0.4)
+material = SubResource("WallMaterial")
+
+[node name="SouthWall18" type="CSGBox3D" parent="." unique_id=1697469408]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.787474, 1.5, 20.966993)
+use_collision = true
+size = Vector3(7.790718, 3, 0.4)
+material = SubResource("WallMaterial")
+
+[node name="SouthWall2" type="CSGBox3D" parent="." unique_id=212259826]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.8714905, 1.5, 23.658113)
+use_collision = true
+size = Vector3(23.742981, 3, 0.4)
 material = SubResource("WallMaterial")
 
 [node name="EastWall" type="CSGBox3D" parent="." unique_id=1816717446]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.713804, 1.5, 7.9746094)
 use_collision = true
-size = Vector3(0.4, 3, 16)
+size = Vector3(0.4, 3, 31.949219)
+material = SubResource("WallMaterial")
+
+[node name="EastWall2" type="CSGBox3D" parent="." unique_id=1312466678]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.216008, 1.5, -5.081787)
+use_collision = true
+size = Vector3(0.4, 3, 5.836426)
+material = SubResource("WallMaterial")
+
+[node name="EastWall3" type="CSGBox3D" parent="." unique_id=1677688078]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.216008, 1.5, 3.9634056)
+use_collision = true
+size = Vector3(0.4, 3, 8.2873535)
 material = SubResource("WallMaterial")
 
 [node name="WestWall" type="CSGBox3D" parent="." unique_id=97871677]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 1.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 1.5, 8.059479)
 use_collision = true
-size = Vector3(0.4, 3, 16)
+size = Vector3(0.4, 3, 32.118958)
 material = SubResource("WallMaterial")
 
 [node name="TestWall" type="CSGBox3D" parent="." unique_id=824737542]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1.5, -1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5792332, 1.5, -1)
+use_collision = true
+size = Vector3(0.4, 3, 6)
+material = SubResource("WallMaterial")
+
+[node name="TestWall2" type="CSGBox3D" parent="." unique_id=794702827]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.09544468, 1.5, -1)
 use_collision = true
 size = Vector3(0.4, 3, 6)
 material = SubResource("WallMaterial")
 
 [node name="CeilingLight" type="OmniLight3D" parent="." unique_id=1495588954]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.65, 4)
 light_color = Color(0.55, 0.67, 1, 1)
-light_energy = 0.8
-omni_range = 12.0
+light_energy = 0.65
+shadow_enabled = true
+omni_range = 8.0
+
+[node name="Ceiling" type="CSGBox3D" parent="."]
+position = Vector3(4.618042, 3.15, 7.9540405)
+size = Vector3(25.236084, 0.3, 31.908081)
+use_collision = true
+material = SubResource("FloorMaterial")
+
+[node name="NorthLight" type="OmniLight3D" parent="."]
+position = Vector3(13.5, 2.65, -6.5)
+light_color = Color(0.55, 0.67, 1, 1)
+light_energy = 0.55
+shadow_enabled = true
+omni_range = 7.0
+
+[node name="MiddleLight" type="OmniLight3D" parent="."]
+position = Vector3(-5.4, 2.65, 14.5)
+light_color = Color(1, 0.62, 0.3, 1)
+light_energy = 0.65
+shadow_enabled = true
+omni_range = 7.0
+
+[node name="SouthLight" type="OmniLight3D" parent="."]
+position = Vector3(10, 2.65, 22.4)
+light_color = Color(0.55, 0.67, 1, 1)
+light_energy = 0.55
+shadow_enabled = true
+omni_range = 7.0
 
 [node name="Player" parent="." unique_id=1313218785 instance=ExtResource("2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 5)
@@ -80,34 +302,52 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 5)
 [node name="BallSpawns" type="Node3D" parent="." unique_id=845378861]
 
 [node name="Marker3D" type="Marker3D" parent="BallSpawns" unique_id=1765988632]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.349, 0.6, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.4, 0.6, -6.7)
 
 [node name="Marker3D2" type="Marker3D" parent="BallSpawns" unique_id=520818459]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 5.458)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.8, 0.6, 5.3)
 
 [node name="Marker3D3" type="Marker3D" parent="BallSpawns" unique_id=1003716500]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.115, 0.6, 6.104)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.6, 0.6, 6.5)
 
 [node name="Marker3D4" type="Marker3D" parent="BallSpawns" unique_id=469853738]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.982, 0.6, 0)
 
 [node name="Marker3D5" type="Marker3D" parent="BallSpawns" unique_id=1605488106]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, -5.458)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 0.6, -6.7)
 
 [node name="Marker3D6" type="Marker3D" parent="BallSpawns" unique_id=1785636997]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.342599, 0.6, -4.425)
 
 [node name="Marker3D7" type="Marker3D" parent="BallSpawns" unique_id=336650267]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.8925347, 0.6, -2.5892186)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 0.6, 11.9)
 
 [node name="Marker3D8" type="Marker3D" parent="BallSpawns" unique_id=196400983]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.01789, 0.6, 3.0426455)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.4, 0.6, 14.5)
 
 [node name="Marker3D9" type="Marker3D" parent="BallSpawns" unique_id=862836131]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.002589, 0.6, 2.9120102)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.6, 16.5)
 
 [node name="Marker3D10" type="Marker3D" parent="BallSpawns" unique_id=997357561]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4754434, 0.6, -5.1074696)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.8, 0.6, 14.5)
+
+[node name="Marker3D11" type="Marker3D" parent="BallSpawns"]
+position = Vector3(10, 0.6, 11.6)
+
+[node name="Marker3D12" type="Marker3D" parent="BallSpawns"]
+position = Vector3(-5, 0.6, 19.2)
+
+[node name="Marker3D13" type="Marker3D" parent="BallSpawns"]
+position = Vector3(1, 0.6, 22.3)
+
+[node name="Marker3D14" type="Marker3D" parent="BallSpawns"]
+position = Vector3(10, 0.6, 22.3)
+
+[node name="Marker3D15" type="Marker3D" parent="BallSpawns"]
+position = Vector3(13.8, 0.6, 19.5)
+
+[node name="Marker3D16" type="Marker3D" parent="BallSpawns"]
+position = Vector3(7.5, 0.6, 5.9)
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=1064742059]
 
@@ -132,7 +372,7 @@ offset_top = 110.0
 offset_right = 1000.0
 offset_bottom = 145.0
 theme_override_font_sizes/font_size = 20
-text = "Encontre a bola laranja e encoste nela para coletar."
+text = "Explore o labirinto e encontre as 7 bolas. Encoste para coletar."
 
 [node name="Crosshair" type="Label" parent="HUD" unique_id=764678612]
 offset_left = 634.0

@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/fat.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/ruan.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/ruan_towers.tscn" id="3"]
+
+[sub_resource type="Environment" id="Env"]
+background_mode = 1
+background_color = Color(0.2, 0.22, 0.27, 1)
+ambient_light_source = 3
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.8
+
+[node name="FatRuanPreview" type="Node3D"]
+
+[node name="Environment" type="WorldEnvironment" parent="."]
+environment = SubResource("Env")
+
+[node name="Fat" parent="." instance=ExtResource("1")]
+position = Vector3(1.4, 0, 0)
+
+[node name="Ruan" parent="." instance=ExtResource("2")]
+position = Vector3(-0.3, 0, 0)
+
+[node name="Torres" parent="." instance=ExtResource("3")]
+position = Vector3(-1.3, 0, 0)
+
+[node name="Camera" type="Camera3D" parent="."]
+position = Vector3(0.25, 0.95, -5)
+rotation = Vector3(0, 3.1415927, 0)
+projection = 1
+size = 2.95
+current = true
